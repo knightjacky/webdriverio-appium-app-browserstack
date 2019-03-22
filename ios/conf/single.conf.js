@@ -27,6 +27,30 @@ exports.config = {
   framework: 'mocha',
   mochaOpts: {
     ui: 'bdd',
-    timeout: 40000
-  }
+    timeout: 4000000
+  },
+  before: function () {
+    const {Eyes, Target} = require('@applitools/eyes.webdriverio');
+    const eyes = new Eyes();
+    eyes.setApiKey('applitools accesskey');
+
+    browser.addCommand("EyesOpen", async function (testName) {
+        console.log("Opening eyes");
+        eyes.setForceFullPageScreenshot(true);
+        await eyes.open(browser, 'Demo applitools', testName);
+    });
+
+    browser.addCommand("EyesCheckWindow", async function async(tag) {
+        console.log("Validating eyes");
+        return await eyes.check(tag, Target.window());
+    });
+
+    browser.addCommand("EyesClose", async function async(throwEx) {
+        console.log("Closing eyes");
+        return await eyes.close(throwEx).then(function (res) {
+            return res;
+        });
+        eyes.abortIfNotClosed();
+    });
+},
 };

@@ -26,9 +26,12 @@
   "homepage": "https://github.com/browserstack/webdriverio-appium-app-browserstack#readme",
   "dependencies": {
     "browserstack-local": "^1.0.0",
+    "wd": "^1.11.1",
     "webdriverio": "^4.0.5"
   },
   "devDependencies": {
+    "@applitools/eyes.webdriverio": "^2.1.0-beta.0",
+    "eyes.selenium": "^3.6.3",
     "wdio-mocha-framework": "^0.2.11"
   }
 }
