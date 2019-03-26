@@ -1,6 +1,6 @@
 exports.config = {
-  user: process.env.BROWSERSTACK_USERNAME || 'jackyyu2',
-  key: process.env.BROWSERSTACK_ACCESS_KEY || 'VWgYxpMzaX1eD6vABnzM',
+    user: process.env.BROWSERSTACK_USERNAME || 'BROWSERSTACK_USERNAME',
+    key: process.env.BROWSERSTACK_ACCESS_KEY || 'BROWSERSTACK_ACC_KEY',
 
   updateJob: false,
   specs: [
@@ -12,7 +12,7 @@ exports.config = {
     name: 'single_appium_test',
     build: 'webdriver-browserstack',
     device: 'iPhone 7',
-    app: process.env.BROWSERSTACK_APP_ID || 'bs://dab2344db77784291a4dbc483ed8ff77af63c669',
+    app: process.env.BROWSERSTACK_APP_ID || 'bs://***********************',
     'browserstack.debug': true
   }],
 
@@ -32,7 +32,7 @@ exports.config = {
   before: function () {
     const {Eyes, Target} = require('@applitools/eyes.webdriverio');
     const eyes = new Eyes();
-    eyes.setApiKey('m7koXQC0Pzt3Lg4gU4NgisRJsEAf9zwuLA3102IK1qIis110');
+    eyes.setApiKey('BAPPLITOOLS_ACC_KEY');
 
     browser.addCommand("EyesOpen", async function (testName) {
         console.log("Opening eyes");
