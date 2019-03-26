@@ -29,5 +29,41 @@ exports.config = {
   mochaOpts: {
     ui: 'bdd',
     timeout: 30000
-  }
+  },
+
+  before: function () {
+    const {Eyes, Target} = require('@applitools/eyes.webdriverio');
+    const eyes = new Eyes();
+    eyes.setApiKey('Applitools-key');
+
+    browser.addCommand("EyesOpen", async function (testName) {
+        console.log("Opening eyes");
+        const widthSize = browser.getViewportSize('width');
+        console.log(widthSize);
+
+        const heightSize = browser.getViewportSize('height');
+        console.log(heightSize);
+        eyes.setForceFullPageScreenshot(true);
+        // eyes.setStitchMode(Eyes.StitchMode.CSS);
+        // eyes.setHideScrollbars(true);
+        // await eyes.open(browser, 'Smart Pix Online', testName, {width: widthSize, height: heightSize});
+        await eyes.open(browser, 'Demo applitools', testName);
+    });
+
+    browser.addCommand("EyesCheckWindow", async function async(tag) {
+        console.log("Validating eyes");
+        return await eyes.check(tag, Target.window());
+    });
+
+    browser.addCommand("EyesClose", async function async(throwEx) {
+        console.log("Closing eyes");
+        return await eyes.close(throwEx).then(function (res) {
+            // console.log(">> Test Result <<");
+            // console.log(res);
+            // console.log(res.appUrls.session);
+            return res;
+        });
+        eyes.abortIfNotClosed();
+    });
+},
 };
